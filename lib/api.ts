@@ -93,7 +93,6 @@ export async function fetchNoteById(id: string): Promise<Note> {
       headers: {
         accept: 'application/json',
         Authorization: `Bearer ${API_TOKEN}`,
-        'Cache-Control': 'no-cache',
       },
     });
     return response.data;

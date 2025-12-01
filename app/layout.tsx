@@ -28,6 +28,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <Header />
           <main>{children}</main>
           <Footer />
+          <div id="modal-root"></div>
         </TanStackProvider>
       </body>
     </html>
