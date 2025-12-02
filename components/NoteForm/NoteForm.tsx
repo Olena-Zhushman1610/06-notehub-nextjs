@@ -14,10 +14,17 @@ interface NoteFormValues {
 interface NoteFormProps {
   onSuccess: () => void;
 }
-
+const trimTransform = (value: unknown) => (typeof value === 'string' ? value.trim() : value);
 const validationSchema = Yup.object({
-  title: Yup.string().trim().required('Title is required'),
-  content: Yup.string().trim().max(500, 'Max length is 500 characters'),
+  title: Yup.string()
+    .transform(trimTransform) // безпечне обрізання пробілів
+    .min(3, 'Title must be at least 3 characters')
+    .max(50, 'Title must be at most 50 characters')
+    .required('Title is required'),
+  content: Yup.string()
+    .transform(trimTransform)
+    .max(500, 'Max length is 500 characters')
+    .nullable(),
   tag: Yup.string().oneOf(['Todo', 'Work', 'Personal', 'Meeting', 'Shopping'], 'Invalid tag'),
 });
 
