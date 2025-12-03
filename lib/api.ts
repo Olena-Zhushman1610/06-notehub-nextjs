@@ -46,13 +46,8 @@ export async function fetchNotes({
   sortBy,
 }: FetchNotesParams): Promise<NotesResponse> {
   try {
-    const response = await axios.get<NotesResponse>(BASE_URL, {
+    const response = await api.get<NotesResponse>('', {
       params: { page, perPage, search, tag, sortBy },
-      headers: {
-        accept: 'application/json',
-        Authorization: `Bearer ${API_TOKEN}`,
-        'Cache-Control': 'no-cache',
-      },
     });
     return response.data;
   } catch (error) {
@@ -89,12 +84,7 @@ export async function deleteNote(id: string): Promise<Note> {
 // 4) Отримання однієї нотатки за id
 export async function fetchNoteById(id: string): Promise<Note> {
   try {
-    const response: AxiosResponse<Note> = await api.get(`/${id}`, {
-      headers: {
-        accept: 'application/json',
-        Authorization: `Bearer ${API_TOKEN}`,
-      },
-    });
+    const response: AxiosResponse<Note> = await api.get(`/${id}`);
     return response.data;
   } catch (error) {
     console.error(`❌ Помилка fetchNoteById (id=${id}):`, error);
